@@ -1,0 +1,179 @@
+# ============================================================
+# File: settings.example.yaml
+# Clouseau Application Settings
+# Copy this to settings.yaml to customize
+
+clouseau_settings:
+  version: "1.0"
+  
+  # CLI Settings
+  cli:
+    # Color mode: dark, light, mono, auto
+    color_mode: "dark"
+    
+    # Fallback to monochrome if colors unavailable
+    fallback_mono: true
+    
+    # Show context panel by default
+    show_context_by_default: false
+    
+    # Show stats panel by default
+    show_stats_by_default: true
+    
+    # Default visible tiles on startup
+    default_tiles_visible:
+      - "chat"
+      - "stats"
+      # Context and API log hidden by default
+      # Available: chat, context, api_log, stats
+    
+    # Hotkey configuration
+    hotkeys:
+      toggle_context: "ctrl+k"
+      toggle_api_log: "ctrl+l"
+      toggle_stats: "ctrl+s"
+      toggle_help: "ctrl+h"
+      next_exchange: "down"
+      prev_exchange: "up"
+      quit: "ctrl+c"
+    
+    # Output format: pretty, json, minimal
+    output_format: "pretty"
+    
+    # Maximum lines to show in scrollable areas
+    max_scroll_lines: 1000
+    
+    # Enable syntax highlighting
+    syntax_highlighting: true
+    
+  # GUI (Web Interface) Settings
+  gui:
+    # Theme: dark, light, auto (detect from OS)
+    theme: "auto"
+    
+    # Fallback theme if auto-detection fails
+    default_theme_fallback: "dark"
+    
+    # Show line numbers in code blocks
+    show_line_numbers: true
+    
+    # Enable syntax highlighting
+    syntax_highlighting: true
+    
+    # Automatically save session name based on first message
+    auto_save_session_name: true
+    
+    # Default tab to show: chat, context, api_log, markdown
+    default_tab: "chat"
+    
+    # Show token usage bar always (or only when hovering)
+    token_bar_always_visible: true
+    
+    # Color thresholds for token usage (percentage)
+    token_usage_colors:
+      low: 70      # Green below this
+      medium: 90   # Yellow between low and medium
+      # Red above medium
+    
+    # Auto-scroll to new messages
+    auto_scroll: true
+    
+    # Font family for code blocks
+    code_font: "monospace"
+    
+    # Font size
+    font_size: "14px"
+    
+  # Search Settings
+  search:
+    # Fuzzy matching threshold (0.0-1.0, lower = more fuzzy)
+    fuzzy_threshold: 0.7
+    
+    # Maximum search results to return
+    max_results: 100
+    
+    # Highlight matches in results
+    highlight_matches: true
+    
+    # Search history size (number of recent searches to remember)
+    history_size: 50
+    
+    # Case sensitive search by default
+    case_sensitive: false
+    
+    # Enable regex search
+    allow_regex: true
+    
+  # General Application Settings
+  general:
+    # Data directory for storing sessions, conversations, etc.
+    # Can use ${HOME} or other environment variables
+    data_directory: ${CLOUSEAU_DATA_DIR}
+    
+    # Auto-export sessions on application close
+    auto_export_on_close: false
+    
+    # Default export format: yaml or json
+    default_export_format: "yaml"
+    
+    # Auto-save interval (seconds, 0 to disable)
+    auto_save_interval: 30
+    
+    # Maximum conversation history to keep in memory
+    max_history_size: 1000
+    
+    # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    log_level: "INFO"
+    
+    # Log file path
+    log_file: ${CLOUSEAU_DATA_DIR}/clouseau.log
+    
+    # Enable telemetry (anonymous usage statistics)
+    telemetry_enabled: false
+    
+  # Model-specific Settings
+  models:
+    # Default system prompt to use if none specified
+    default_system_prompt: "You are a helpful AI assistant."
+    
+    # Maximum tokens to use by default
+    default_max_tokens: 4096
+    
+    # Default temperature
+    default_temperature: 1.0
+    
+    # Retry failed requests
+    retry_on_failure: true
+    
+    # Number of retries
+    max_retries: 3
+    
+    # Timeout for API requests (seconds)
+    request_timeout: 60
+    
+  # Performance Settings
+  performance:
+    # Enable caching of API responses
+    cache_responses: true
+    
+    # Cache TTL (seconds)
+    cache_ttl: 3600
+    
+    # Maximum cache size (MB)
+    max_cache_size: 100
+    
+    # Enable compression for stored data
+    compress_data: true
+    
+  # Privacy Settings
+  privacy:
+    # Redact API keys in logs and exports
+    redact_api_keys: true
+    
+    # Anonymize user data in telemetry
+    anonymize_telemetry: true
+    
+    # Store full conversation history
+    store_full_history: true
+
+

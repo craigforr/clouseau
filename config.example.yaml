@@ -1,0 +1,73 @@
+# File: config.example.yaml
+# Clouseau LLM Provider Configuration
+# Copy this to config.yaml and configure your providers
+
+llm_providers:
+  # Anthropic Claude (Direct API)
+  - name: "Anthropic Claude"
+    provider_type: "anthropic"
+    endpoint: "https://api.anthropic.com/v1/messages"
+    api_key: ${ANTHROPIC_API_KEY}  # Reference environment variable
+    default_model: "claude-sonnet-4-20250514"
+    max_tokens: 4096
+    temperature: 1.0
+    enabled: true
+    
+  # OpenAI (Direct API)
+  - name: "OpenAI GPT-4"
+    provider_type: "openai"
+    endpoint: "https://api.openai.com/v1/chat/completions"
+    api_key: ${OPENAI_API_KEY}
+    default_model: "gpt-4-turbo-preview"
+    max_tokens: 4096
+    temperature: 1.0
+    enabled: true
+    
+  # Azure OpenAI
+  - name: "Azure OpenAI GPT-4"
+    provider_type: "azure_openai"
+    endpoint: "https://YOUR-RESOURCE.openai.azure.com"
+    api_key: ${AZURE_OPENAI_KEY}
+    api_version: "2024-02-15-preview"
+    deployment_name: "gpt-4"
+    max_tokens: 4096
+    enabled: false
+    
+  # AWS Bedrock Claude
+  - name: "AWS Bedrock Claude"
+    provider_type: "bedrock"
+    region: ${AWS_REGION}
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_ACCESS_KEY}
+    default_model: "anthropic.claude-v2"
+    max_tokens: 4096
+    enabled: false
+    
+  # Google Vertex AI
+  - name: "Google Vertex AI"
+    provider_type: "vertex"
+    project_id: ${GCP_PROJECT_ID}
+    location: "us-central1"
+    credentials_path: ${GOOGLE_APPLICATION_CREDENTIALS}
+    default_model: "gemini-pro"
+    enabled: false
+    
+  # Local Ollama
+  - name: "Local Ollama"
+    provider_type: "ollama"
+    endpoint: "http://localhost:11434"
+    api_key: null  # No authentication needed
+    default_model: "llama2"
+    enabled: true
+    
+  # Local LM Studio
+  - name: "LM Studio"
+    provider_type: "lmstudio"
+    endpoint: "http://localhost:1234/v1"
+    api_key: null
+    default_model: "local-model"
+    enabled: false
+
+# Default provider to use on startup
+default_provider: "Anthropic Claude"
+

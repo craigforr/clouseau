@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "permissions": {
+    "bash": {
+      "allowed": true,
+      "prompt": false,
+      "allowedCommands": ["*"],
+      "blockedCommands": []
+    },
+    "shell": {
+      "allowed": true,
+      "prompt": false
+    },
+    "fileSystem": {
+      "read": {
+        "allowed": true,
+        "prompt": false
+      },
+      "write": {
+        "allowed": true,
+        "prompt": false
+      },
+      "delete": {
+        "allowed": true,
+        "prompt": false
+      }
+    },
+    "packageManagers": {
+      "apt": {
+        "allowed": true,
+        "prompt": false
+      },
+      "npm": {
+        "allowed": true,
+        "prompt": false
+      },
+      "yarn": {
+        "allowed": true,
+        "prompt": false
+      },
+      "pnpm": {
+        "allowed": true,
+        "prompt": false
+      },
+      "pip": {
+        "allowed": true,
+        "prompt": false
+      },
+      "uv": {
+        "allowed": true,
+        "prompt": false
+      }
+    },
+    "python": {
+      "allowed": true,
+      "prompt": false,
+      "packageManager": "uv"
+    },
+    "node": {
+      "allowed": true,
+      "prompt": false
+    },
+    "typescript": {
+      "allowed": true,
+      "prompt": false
+    },
+    "git": {
+      "allowed": true,
+      "operations": {
+        "clone": {
+          "prompt": false
+        },
+        "pull": {
+          "prompt": false
+        },
+        "fetch": {
+          "prompt": false
+        },
+        "status": {
+          "prompt": false
+        },
+        "diff": {
+          "prompt": false
+        },
+        "add": {
+          "prompt": false
+        },
+        "commit": {
+          "prompt": true,
+          "requireMessage": true
+        },
+        "push": {
+          "prompt": true,
+          "requireConfirmation": true
+        },
+        "branch": {
+          "prompt": false
+        },
+        "checkout": {
+          "prompt": false
+        },
+        "merge": {
+          "prompt": false
+        }
+      }
+    },
+    "testing": {
+      "pytest": {
+        "allowed": true,
+        "prompt": false
+      },
+      "jest": {
+        "allowed": true,
+        "prompt": false
+      },
+      "coverage": {
+        "allowed": true,
+        "prompt": false
+      }
+    },
+    "build": {
+      "allowed": true,
+      "prompt": false
+    },
+    "docker": {
+      "allowed": true,
+      "prompt": false
+    }
+  },
+  "environment": {
+    "platform": "linux",
+    "wsl": true,
+    "shell": "/bin/bash",
+    "pythonPackageManager": "uv"
+  }
+}

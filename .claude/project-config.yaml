@@ -1,0 +1,95 @@
+project:
+  name: "Clouseau"
+  version: "0.1.0"
+  description: "An inspector for LLM interactions written in Python, TypeScript, and React"
+  
+structure:
+  root: "."
+  backend: "./backend"
+  frontend: "./frontend"
+  cli: "./cli"
+  scripts: "./scripts"
+  docs: "./docs"
+  tests: "./tests"
+
+technology:
+  backend:
+    language: "python"
+    version: ">=3.10"
+    packageManager: "uv"
+    framework: "fastapi"
+    database: "sqlite"
+    orm: "sqlalchemy"
+    
+  frontend:
+    language: "typescript"
+    framework: "react"
+    version: ">=18"
+    styling: "tailwindcss"
+    packageManager: "npm"
+    
+  cli:
+    language: "typescript"
+    framework: "ink"
+    packageManager: "npm"
+
+testing:
+  backend:
+    framework: "pytest"
+    coverage:
+      target: 95
+      enforce: true
+      
+  frontend:
+    framework: "jest"
+    coverage:
+      target: 85
+      enforce: true
+      
+  cli:
+    framework: "jest"
+    coverage:
+      target: 95
+      enforce: true
+      
+  api:
+    coverage:
+      target: 100
+      enforce: true
+
+git:
+  repository: "github"
+  issueTracking: true
+  branches:
+    main: "main"
+    development: "develop"
+    feature: "feature/*"
+    bugfix: "bugfix/*"
+
+conventions:
+  commits:
+    format: "conventional"
+    types:
+      - "feat"
+      - "fix"
+      - "docs"
+      - "style"
+      - "refactor"
+      - "test"
+      - "chore"
+  
+  codeStyle:
+    python:
+      formatter: "black"
+      linter: "ruff"
+      lineLength: 100
+      
+    typescript:
+      formatter: "prettier"
+      linter: "eslint"
+      
+  branches:
+    naming: "type/issue-number-description"
+    examples:
+      - "feature/123-add-search-functionality"
+      - "bugfix/456-fix-token-counter"
