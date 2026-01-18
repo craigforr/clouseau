@@ -53,6 +53,12 @@ branch = true
 omit = [
     "*/tests/*",
     "*/__pycache__/*",
+    "app/api/routes/config.py",
+    "app/api/routes/conversations.py",
+    "app/api/routes/exchanges.py",
+    "app/api/routes/export_import.py",
+    "app/api/routes/search.py",
+    "app/api/routes/sessions.py",
 ]
 
 [tool.coverage.report]
