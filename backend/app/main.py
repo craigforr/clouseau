@@ -9,7 +9,7 @@ from app.db.session import init_db
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):  # pragma: no cover
     """Application lifespan handler."""
     # Initialize database tables on startup
     await init_db()

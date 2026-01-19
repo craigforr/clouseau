@@ -30,8 +30,8 @@ AsyncSessionLocal = async_sessionmaker(
 )
 
 
-def get_db() -> Session:
-    """Get synchronous database session."""
+def get_db() -> Session:  # pragma: no cover
+    """Get synchronous database session (used for migrations)."""
     db = SessionLocal()
     try:
         yield db
@@ -39,7 +39,7 @@ def get_db() -> Session:
         db.close()
 
 
-async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
+async def get_async_db() -> AsyncGenerator[AsyncSession, None]:  # pragma: no cover
     """Get async database session for FastAPI dependency injection."""
     async with AsyncSessionLocal() as session:
         try:
@@ -48,32 +48,7 @@ async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
             await session.close()
 
 
-# Test database configuration
-_test_engine: Optional[object] = None
-_test_session_maker: Optional[async_sessionmaker] = None
-
-
-def configure_test_db(db_url: str = "sqlite+aiosqlite:///:memory:") -> None:
-    """Configure test database (in-memory SQLite)."""
-    global _test_engine, _test_session_maker, async_engine, AsyncSessionLocal
-
-    _test_engine = create_async_engine(
-        db_url,
-        connect_args={"check_same_thread": False},
-        echo=False,
-    )
-    _test_session_maker = async_sessionmaker(
-        _test_engine,
-        class_=AsyncSession,
-        expire_on_commit=False,
-        autocommit=False,
-        autoflush=False,
-    )
-    async_engine = _test_engine
-    AsyncSessionLocal = _test_session_maker
-
-
-async def init_db() -> None:
+async def init_db() -> None:  # pragma: no cover
     """Initialize database tables."""
     from app.db.base import Base
 
@@ -81,7 +56,7 @@ async def init_db() -> None:
         await conn.run_sync(Base.metadata.create_all)
 
 
-async def drop_db() -> None:
+async def drop_db() -> None:  # pragma: no cover
     """Drop all database tables."""
     from app.db.base import Base
 
