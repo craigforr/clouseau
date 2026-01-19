@@ -10,6 +10,13 @@ from sqlalchemy.pool import StaticPool
 
 from app.db.base import Base
 from app.db.session import get_async_db
+
+# Import all models to register them with SQLAlchemy metadata
+from app.models.session import Session  # noqa: F401
+from app.models.conversation import Conversation  # noqa: F401
+from app.models.exchange import Exchange  # noqa: F401
+
+# Import app AFTER models are registered
 from app.main import app
 
 
@@ -41,7 +48,7 @@ async def override_get_async_db():
             await session.close()
 
 
-# Override the dependency
+# Override the dependency at module load time
 app.dependency_overrides[get_async_db] = override_get_async_db
 
 
