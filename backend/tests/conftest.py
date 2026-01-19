@@ -1,7 +1,5 @@
 """Pytest configuration and fixtures."""
 
-import asyncio
-
 import pytest
 from fastapi.testclient import TestClient
 from httpx import ASGITransport, AsyncClient
@@ -52,14 +50,6 @@ async def override_get_async_db():
 app.dependency_overrides[get_async_db] = override_get_async_db
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    """Create event loop for the test session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
-
-
 @pytest.fixture(autouse=True)
 async def setup_database():
     """Set up and tear down test database for each test."""
@@ -68,13 +58,6 @@ async def setup_database():
     yield
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
-
-
-@pytest.fixture(scope="session", autouse=True)
-async def cleanup_engine():
-    """Dispose engine after all tests complete."""
-    yield
-    await test_engine.dispose()
 
 
 @pytest.fixture
