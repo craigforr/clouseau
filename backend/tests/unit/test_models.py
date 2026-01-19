@@ -16,7 +16,8 @@ def engine():
     """Create in-memory SQLite engine for testing."""
     engine = create_engine("sqlite:///:memory:", echo=False)
     Base.metadata.create_all(engine)
-    return engine
+    yield engine
+    engine.dispose()
 
 
 @pytest.fixture
@@ -24,6 +25,7 @@ def db_session(engine):
     """Create database session for testing."""
     with DBSession(engine) as session:
         yield session
+        session.rollback()
 
 
 class TestSessionModel:
