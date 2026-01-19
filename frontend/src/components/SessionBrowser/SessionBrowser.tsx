@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SessionBrowser() {
   return (
     <div className="session-browser">

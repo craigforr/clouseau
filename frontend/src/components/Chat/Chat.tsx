@@ -1,10 +1,8 @@
-import React from 'react';
-
 interface ChatProps {
   sessionId?: string;
 }
 
-function Chat({ sessionId }: ChatProps) {
+function Chat({ sessionId: _sessionId }: ChatProps) {
   return (
     <div className="chat-container">
       {/* Chat implementation */}

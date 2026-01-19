@@ -12,23 +12,29 @@ Clouseau is a comprehensive observability tool for tracking, analyzing, and mana
 - Full-text search across conversations
 - Web UI and CLI interfaces
 
-## Quick Start
-
-### Prerequisites
+## Prerequisites
 
 - Python 3.10+
 - Node.js 18+
-- uv (Python package manager)
+- [uv](https://github.com/astral-sh/uv) (Python package manager)
+- make (for using Makefile commands)
 
-### Installation
+## Quick Start
+
+### Setup
 
 ```bash
 # Clone the repository
 git clone https://github.com/craigforr/clouseau.git
 cd clouseau
 
-# Run setup script
-./scripts/setup_dev.sh
+# Set up all components (recommended)
+make setup
+
+# Or set up individually:
+make setup-backend   # Python backend only
+make setup-frontend  # React frontend only
+make setup-cli       # CLI only
 ```
 
 ### Running
@@ -48,15 +54,57 @@ npm run build
 clou chat
 ```
 
+## Testing
+
+### Using Make (Recommended)
+
+```bash
+# Run all tests
+make test
+
+# Run backend tests only
+make test-backend
+```
+
+### Using Test Scripts
+
+```bash
+# Backend tests
+cd backend
+./run_tests.sh
+
+# With pytest options
+./run_tests.sh -v                    # Verbose
+./run_tests.sh -k "test_health"      # Filter by name
+./run_tests.sh --cov-report=html     # HTML coverage report
+```
+
+### Manual Commands
+
+```bash
+# Backend (from backend/ directory)
+uv run pytest tests -v --cov=app --cov-report=term-missing
+
+# Frontend (from frontend/ directory, after npm install)
+npm test
+
+# CLI (from cli/ directory, after npm install)
+npm test
+```
+
 ## Project Structure
 
 ```
 clouseau/
 ├── backend/          # Python FastAPI backend
+│   ├── app/          # Application code
+│   ├── tests/        # Test suite
+│   └── run_tests.sh  # Test runner
 ├── frontend/         # React web interface
 ├── cli/              # React Ink CLI
 ├── docs/             # Documentation
-└── scripts/          # Setup and utility scripts
+├── scripts/          # Setup scripts
+└── Makefile          # Development commands
 ```
 
 ## Documentation
@@ -65,25 +113,91 @@ clouseau/
 - [Search Syntax](docs/SEARCH_SYNTAX.md)
 - [Configuration Guide](docs/CONFIGURATION.md)
 
+## Building
+
+### Using Make
+
+```bash
+# Build all components
+make build
+
+# Build individual components
+make build-frontend  # Build React frontend (output: frontend/dist/)
+make build-cli       # Build CLI TypeScript (output: cli/dist/)
+```
+
+### Manual Build Commands
+
+```bash
+# Frontend (from frontend/ directory)
+npm run build
+
+# CLI (from cli/ directory)
+npm run build
+```
+
+**Note:** The Python backend does not require a build step.
+
 ## Development
 
 See [DEVELOPER.md](DEVELOPER.md) for development guidelines.
 
-### Testing
+### Available Make Commands
 
 ```bash
-# Backend tests
-cd backend
-uv run pytest --cov=app
-
-# Frontend tests
-cd frontend
-npm test
-
-# CLI tests
-cd cli
-npm test
+make help            # Show all available commands
 ```
+
+**Setup:**
+```bash
+make setup           # Set up all components
+make setup-backend   # Set up Python backend only
+make setup-frontend  # Set up React frontend only
+make setup-cli       # Set up CLI only
+```
+
+**Build:**
+```bash
+make build           # Build all components
+make build-frontend  # Build React frontend for production
+make build-cli       # Build CLI TypeScript
+```
+
+**Test:**
+```bash
+make test            # Run all tests
+make test-backend    # Run backend tests with coverage
+make test-frontend   # Run frontend tests
+make test-cli        # Run CLI tests
+```
+
+**Lint:**
+```bash
+make lint            # Run all linters
+make lint-backend    # Type check Python backend
+make lint-frontend   # Lint and type check frontend
+make lint-cli        # Lint and type check CLI
+```
+
+**CI/Verification:**
+```bash
+make check           # Run full verification (build + lint + test)
+make coverage        # Show coverage report from last test run
+```
+
+**Other:**
+```bash
+make clean           # Remove build artifacts and caches
+```
+
+## Coverage Targets
+
+| Component | Target |
+|-----------|--------|
+| Backend   | 95%    |
+| API Routes| 100%   |
+| Frontend  | 85%    |
+| CLI       | 95%    |
 
 ## License
 
