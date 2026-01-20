@@ -25,6 +25,7 @@ dev = [
     "httpx>=0.26.0",
     "ruff>=0.1.0",
     "mypy>=1.8.0",
+    "greenlet>=3.0.0",
 ]
 
 [build-system]
@@ -52,6 +53,7 @@ markers = [
 [tool.coverage.run]
 source = ["app"]
 branch = true
+concurrency = ["greenlet", "thread"]
 omit = [
     "*/tests/*",
     "*/__pycache__/*",
