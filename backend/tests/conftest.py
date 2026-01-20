@@ -1,10 +1,14 @@
 """Pytest configuration and fixtures."""
 
+import asyncio
+import os
+import tempfile
+
 import pytest
 from fastapi.testclient import TestClient
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.pool import NullPool
 
 from app.db.base import Base
 from app.db.session import get_async_db
@@ -18,13 +22,15 @@ from app.models.exchange import Exchange  # noqa: F401
 from app.main import app
 
 
-# Test database setup - use StaticPool to share connection across threads
-TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+# Use a temporary file for the test database to avoid connection sharing issues
+_test_db_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+_test_db_file.close()
+TEST_DATABASE_URL = f"sqlite+aiosqlite:///{_test_db_file.name}"
 
 test_engine = create_async_engine(
     TEST_DATABASE_URL,
     connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
+    poolclass=NullPool,  # NullPool doesn't keep connections, preventing hangs
     echo=False,
 )
 
@@ -48,6 +54,14 @@ async def override_get_async_db():
 
 # Override the dependency at module load time
 app.dependency_overrides[get_async_db] = override_get_async_db
+
+
+def pytest_sessionfinish(session, exitstatus):
+    """Clean up test database file after all tests complete."""
+    try:
+        os.unlink(_test_db_file.name)
+    except OSError:
+        pass
 
 
 @pytest.fixture(autouse=True)
