@@ -25,6 +25,14 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/main.tsx',
         'src/vite-env.d.ts',
+        // Stub components not implemented in this issue
+        'src/components/ExchangeTabs/**',
+        'src/components/SearchInterface/**',
+        'src/components/SettingsPanel/**',
+        'src/components/ThemeToggle/**',
+        // Re-export barrel files
+        'src/components/*/index.tsx',
+        'src/pages/index.ts',
       ],
       thresholds: {
         global: {

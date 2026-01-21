@@ -3,6 +3,7 @@
 export interface Session {
   id: string;
   name: string;
+  description?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -12,6 +13,7 @@ export interface Conversation {
   sessionId: string;
   title: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Exchange {
@@ -19,5 +21,8 @@ export interface Exchange {
   conversationId: string;
   userMessage: string;
   assistantMessage: string;
+  model?: string;
+  inputTokens?: number;
+  outputTokens?: number;
   createdAt: Date;
 }
