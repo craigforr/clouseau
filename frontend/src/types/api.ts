@@ -26,3 +26,11 @@ export interface ApiExchange {
   output_tokens: number | null;
   created_at: string;
 }
+
+// Paginated response wrapper
+export interface ApiPaginatedResponse<T> {
+  items: T[];
+  total: number;
+  page: number;
+  page_size: number;
+}
