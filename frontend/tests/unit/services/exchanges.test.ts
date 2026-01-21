@@ -14,33 +14,38 @@ describe('exchanges service', () => {
   });
 
   describe('getExchanges', () => {
-    it('fetches and transforms exchanges for a conversation', async () => {
-      vi.mocked(api.fetchApi).mockResolvedValue([
-        {
-          id: 100,
-          conversation_id: 10,
-          user_message: 'Hello',
-          assistant_message: 'Hi there',
-          model: 'gpt-4',
-          input_tokens: 50,
-          output_tokens: 30,
-          created_at: '2024-01-15T10:00:00Z',
-        },
-        {
-          id: 101,
-          conversation_id: 10,
-          user_message: 'How are you?',
-          assistant_message: 'I am doing well',
-          model: null,
-          input_tokens: null,
-          output_tokens: null,
-          created_at: '2024-01-15T10:01:00Z',
-        },
-      ]);
+    it('fetches and transforms exchanges for a conversation from paginated response', async () => {
+      vi.mocked(api.fetchApi).mockResolvedValue({
+        items: [
+          {
+            id: 100,
+            conversation_id: 10,
+            user_message: 'Hello',
+            assistant_message: 'Hi there',
+            model: 'gpt-4',
+            input_tokens: 50,
+            output_tokens: 30,
+            created_at: '2024-01-15T10:00:00Z',
+          },
+          {
+            id: 101,
+            conversation_id: 10,
+            user_message: 'How are you?',
+            assistant_message: 'I am doing well',
+            model: null,
+            input_tokens: null,
+            output_tokens: null,
+            created_at: '2024-01-15T10:01:00Z',
+          },
+        ],
+        total: 2,
+        page: 1,
+        page_size: 50,
+      });
 
       const result = await getExchanges('10');
 
-      expect(api.fetchApi).toHaveBeenCalledWith('/conversations/10/exchanges');
+      expect(api.fetchApi).toHaveBeenCalledWith('/exchanges/by-conversation/10');
       expect(result).toHaveLength(2);
       expect(result[0].id).toBe('100');
       expect(result[0].conversationId).toBe('10');

@@ -50,18 +50,37 @@ clouseau/
 └── scripts/          # Utility scripts
 ```
 
-## Makefile Commands
+## Development Commands
+
+**IMPORTANT: Always use `make` commands instead of running npm/uv directly.**
+
+### Running the Application
+
+| Command | Description | URL |
+|---------|-------------|-----|
+| `make run` | Start both backend + frontend | Backend: http://localhost:8000, Frontend: http://localhost:3000 |
+| `make run-backend` | Start backend API server only | http://localhost:8000 (API docs: /docs) |
+| `make run-frontend` | Start frontend dev server only | http://localhost:3000 |
+
+### Testing & Building
 
 | Command | Description |
 |---------|-------------|
 | `make test` | Run all tests |
 | `make test-backend` | Run backend tests with coverage |
 | `make test-frontend` | Run frontend tests |
-| `make build` | Build frontend and CLI |
-| `make run-backend` | Start backend dev server (port 8000) |
-| `make run-frontend` | Start frontend dev server (port 5173) |
+| `make coverage-frontend` | Run frontend tests with coverage report |
+| `make build` | Build frontend and CLI for production |
+| `make check` | Full CI check (build + lint + test) |
+
+### Utilities
+
+| Command | Description |
+|---------|-------------|
 | `make sync` | Sync to Dropbox |
 | `make backup` | Create dated backup |
+| `make clean` | Remove build artifacts and caches |
+| `make help` | Show all available commands |
 
 ## File Locations
 

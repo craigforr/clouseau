@@ -56,7 +56,7 @@ help:
 	@echo "Run (Development Servers):"
 	@echo "  make run              - Run backend + frontend together"
 	@echo "  make run-backend      - Run backend API server (port 8000)"
-	@echo "  make run-frontend     - Run frontend dev server (port 5173)"
+	@echo "  make run-frontend     - Run frontend dev server (port 3000)"
 	@echo "  make run-cli          - Run CLI in dev mode"
 	@echo ""
 	@echo "Sync/Backup:"
@@ -250,7 +250,7 @@ coverage-cli:
 run:
 	@echo "Starting backend and frontend..."
 	@echo "Backend: http://localhost:8000"
-	@echo "Frontend: http://localhost:5173"
+	@echo "Frontend: http://localhost:3000"
 	@echo "Press Ctrl+C to stop"
 	@echo ""
 	@trap 'kill 0' INT; \
@@ -267,7 +267,7 @@ run-backend:
 
 run-frontend:
 	@echo "Starting frontend dev server..."
-	@echo "URL: http://localhost:5173"
+	@echo "URL: http://localhost:3000"
 	@echo ""
 	@if [ ! -d "frontend/node_modules" ]; then \
 		echo "Error: Run 'make setup-frontend' first"; \

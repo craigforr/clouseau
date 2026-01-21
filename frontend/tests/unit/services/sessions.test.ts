@@ -14,23 +14,28 @@ describe('sessions service', () => {
   });
 
   describe('getSessions', () => {
-    it('fetches and transforms sessions', async () => {
-      vi.mocked(api.fetchApi).mockResolvedValue([
-        {
-          id: 1,
-          name: 'Session 1',
-          description: 'First session',
-          created_at: '2024-01-15T10:00:00Z',
-          updated_at: '2024-01-15T11:00:00Z',
-        },
-        {
-          id: 2,
-          name: 'Session 2',
-          description: null,
-          created_at: '2024-01-16T10:00:00Z',
-          updated_at: '2024-01-16T11:00:00Z',
-        },
-      ]);
+    it('fetches and transforms sessions from paginated response', async () => {
+      vi.mocked(api.fetchApi).mockResolvedValue({
+        items: [
+          {
+            id: 1,
+            name: 'Session 1',
+            description: 'First session',
+            created_at: '2024-01-15T10:00:00Z',
+            updated_at: '2024-01-15T11:00:00Z',
+          },
+          {
+            id: 2,
+            name: 'Session 2',
+            description: null,
+            created_at: '2024-01-16T10:00:00Z',
+            updated_at: '2024-01-16T11:00:00Z',
+          },
+        ],
+        total: 2,
+        page: 1,
+        page_size: 20,
+      });
 
       const result = await getSessions();
 
