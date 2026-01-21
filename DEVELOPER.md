@@ -76,6 +76,25 @@ Types: feat, fix, docs, style, refactor, test, chore
 Scopes: backend, frontend, cli, docs
 ```
 
+### Commit Message Template
+
+Include coverage stats in commit messages for traceability:
+
+```
+type(scope): #issue - description
+
+[Brief explanation of what changed and why]
+
+Coverage:
+- Backend: XX% (target: 95%)
+- Frontend: XX% (target: 85%)
+- CLI: XX% (target: 95%)
+
+Verified: make check passed
+```
+
+Get coverage stats with `make coverage` before committing.
+
 ### Test-Driven Development
 
 1. Write failing tests first
@@ -92,18 +111,56 @@ Scopes: backend, frontend, cli, docs
 | CLI      | 95%    |
 | Frontend | 85%    |
 
+## Building
+
+### Using Make (Recommended)
+
+```bash
+make build           # Build all components
+make build-frontend  # Build React frontend for production
+make build-cli       # Build CLI TypeScript
+```
+
+### Build Outputs
+
+| Component | Build Command     | Output Directory |
+|-----------|-------------------|------------------|
+| Frontend  | `npm run build`   | `frontend/dist/` |
+| CLI       | `npm run build`   | `cli/dist/`      |
+| Backend   | N/A (Python)      | N/A              |
+
 ## Running Tests
+
+### Using Make (Recommended)
+
+```bash
+make test            # Run all tests
+make test-backend    # Run backend tests with coverage
+make test-frontend   # Run frontend tests
+make test-cli        # Run CLI tests
+```
+
+### Manual Commands
 
 ```bash
 # Backend
 cd backend
-uv run pytest --cov=app --cov-report=term
+uv run pytest tests -v --cov=app --cov-report=term-missing
 
 # Frontend
 cd frontend
-npm test -- --coverage
+npm test
 
 # CLI
 cd cli
-npm test -- --coverage
+npm test
+```
+
+## Linting and Type Checking
+
+```bash
+make lint            # Run all linters
+make lint-backend    # Type check Python backend (mypy)
+make lint-frontend   # Lint and type check frontend
+make lint-cli        # Lint and type check CLI
 ```

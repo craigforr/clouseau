@@ -7,6 +7,7 @@ from app.services.llm_providers.base import (
     ModelInfo,
     ProviderConfig,
 )
+from app.services.llm_providers.anthropic import AnthropicProvider
 from app.services.llm_providers.mock import MockLLMProvider
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "LLMResponse",
     "ModelInfo",
     "ProviderConfig",
+    "AnthropicProvider",
     "MockLLMProvider",
 ]

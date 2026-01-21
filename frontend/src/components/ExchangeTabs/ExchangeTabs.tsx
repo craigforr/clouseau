@@ -1,10 +1,8 @@
-import React from 'react';
-
 interface ExchangeTabsProps {
   exchangeId: string;
 }
 
-function ExchangeTabs({ exchangeId }: ExchangeTabsProps) {
+function ExchangeTabs({ exchangeId: _exchangeId }: ExchangeTabsProps) {
   return (
     <div className="exchange-tabs">
       {/* Exchange tabs implementation */}

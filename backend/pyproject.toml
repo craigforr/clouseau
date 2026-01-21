@@ -14,6 +14,7 @@ dependencies = [
     "httpx>=0.26.0",
     "pyyaml>=6.0.0",
     "aiosqlite>=0.19.0",
+    "anthropic>=0.40.0",
 ]
 
 [project.optional-dependencies]
@@ -24,6 +25,7 @@ dev = [
     "httpx>=0.26.0",
     "ruff>=0.1.0",
     "mypy>=1.8.0",
+    "greenlet>=3.0.0",
 ]
 
 [build-system]
@@ -36,6 +38,7 @@ packages = ["app"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 addopts = [
     "-v",
     "--tb=short",
@@ -50,15 +53,13 @@ markers = [
 [tool.coverage.run]
 source = ["app"]
 branch = true
+concurrency = ["greenlet", "thread"]
 omit = [
     "*/tests/*",
     "*/__pycache__/*",
     "app/api/routes/config.py",
-    "app/api/routes/conversations.py",
-    "app/api/routes/exchanges.py",
     "app/api/routes/export_import.py",
     "app/api/routes/search.py",
-    "app/api/routes/sessions.py",
 ]
 
 [tool.coverage.report]

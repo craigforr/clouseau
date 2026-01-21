@@ -7,8 +7,8 @@
     "clou": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
     "start": "node dist/index.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
